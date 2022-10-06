@@ -65,6 +65,53 @@
 			],
 			"while": "(^|\\G)\\s*(>) ?"
 		},
+		"citation-normal": {
+			"patterns": [
+				{
+					"match": "\\[[^;@\\]]*(?<![a-zA-Z0-9])(@([a-zA-Z0-9_]+|{([^}]+)}))[^;@\\]]*(?:;[^;@\\]]*(?<![a-zA-Z0-9])(@([a-zA-Z0-9_]+|{([^}]+)}))[^;@\\]]*)*\\]",
+					"captures": {
+						"1": {
+							"name": "entity.name.citationKey"
+						},
+						"4": {
+							"name": "entity.name.citationKey"
+						},
+						"2": {
+							"name": "entity.name.citationKey.identifier"
+						},
+						"3": {
+							"name": "entity.name.citationKey.identifier"
+						},
+						"5": {
+							"name": "entity.name.citationKey.identifier"
+						},
+						"6": {
+							"name": "entity.name.citationKey.identifier"
+						}
+					},
+					"name": "meta.citation.normal"
+				}
+			]
+		},
+		"citation-textual": {
+			"patterns": [
+				{
+					"match": "(?<![a-zA-Z0-9])(@([a-zA-Z0-9_]+|{([^}]+)}))",
+					"captures": {
+						"1": {
+							"name": "entity.name.citationKey"
+						},
+						"2": {
+							"name": "entity.name.citationKey.identifier"
+						},
+						"3": {
+							"name": "entity.name.citationKey.identifier"
+						}
+					},
+					"name": "meta.citation.textual"
+				}
+			]
+		},
 		"fenced_code_block_css": {
 			"begin": "(^|\\G)(\\s*)(`{3,}|~{3,})\\s*(?i:(css|css.erb)((\\s+|:|,|\\{|\\?)[^`~]*)?$)",
 			"name": "markup.fenced_code.block.markdown",
@@ -2074,7 +2121,7 @@
 			"name": "markup.fenced_code.block.markdown"
 		},
 		"fenced_div": {
-			"begin": "(?:^|\\G)(:{3,})\\s*([a-z\\-]+|\\{.*\\})\\s*(:*)\\s*$",
+			"begin": "(?:^|\\G)(:{3,})\\s*([a-z\\-]+|\\{(.*)\\})\\s*(:*)\\s*$",
 			"beginCaptures": {
 				"1": {
 					"name": "punctuation.definition.fenced_div.markdown"
@@ -2083,6 +2130,12 @@
 					"name": "fenced_div.block.attributes.markdown"
 				},
 				"3": {
+					"name": "fenced_div.block.attributes.markdown",
+					"patterns": [
+						{"include": "text.html.basic#attribute"}
+					]
+				},
+				"4": {
 					"name": "punctuation.definition.fenced_div.markdown"
 				}
 			},
@@ -2508,6 +2561,12 @@
 					"include": "#escape"
 				},
 				{
+					"include": "#citation-normal"
+				},
+				{
+					"include": "#citation-textual"
+				},
+				{
 					"include": "#image-inline"
 				},
 				{
@@ -2615,6 +2674,38 @@
 		},
 		"bracketed-span": {
 			"match": "(?x)\r\n  (\\[)((?<square>[^\\[\\]\\\\]|\\\\.|\\[\\g<square>*+\\])*+)(\\])\r\n                # Match the span text.\r\n  (\\{)          # Opening bracket for attrs\r\n    # Attributes\r\n      (\r\n         (<)([^<>\\n]*)(>)\r\n         | ((?<attrs>(?>[^{}]+)|\\(\\g<attrs>*\\))*)\r\n      )\r\n  (\\})",
+			"captures": {
+				"1": {
+					"comment": "Opening square bracket"
+				},
+				"2": {
+					"comment": "Span text",
+					"patterns": [
+						{"include": "#inline"}
+					]
+				},
+				"3": {
+					"comment": "Span text (last char)",
+					"patterns": [
+						{"include": "#inline"}
+					]
+				},
+				"4": {
+					"comment": "Closing square bracket"
+				},
+				"5": {
+					"comment": "Opening figure bracket"
+				},
+				"6": {
+					"comment": "Attributes",
+					"patterns": [
+						{"include": "text.html.basic#attribute"}
+					]
+				},
+				"7": {
+					"comment": "Closing figure bracket"
+				}
+			},
 			"name": "meta.bracketed_span.inline.markdown"
 		},
 		"escape": {
