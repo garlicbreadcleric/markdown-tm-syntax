@@ -68,25 +68,30 @@
 		"citation-normal": {
 			"patterns": [
 				{
-					"match": "\\[[^;@\\]]*(?<![a-zA-Z0-9])(@(?:([a-zA-Z0-9_]+)|{([^}]+)}))[^;@\\]]*(?:;[^;@\\]]*(?<![a-zA-Z0-9])(@(?:([a-zA-Z0-9_]+)|{([^}]+)}))[^;@\\]]*)*\\]",
+					"match": "\\[([^;@\\]]*(?<![a-zA-Z0-9])@(?:[a-zA-Z0-9_]+|{[^}]+})[^;@\\]]*(?:;[^;@\\]]*(?<![a-zA-Z0-9])@(?:[a-zA-Z0-9_]+|{[^}]+})[^;@\\]]*)*)\\]",
 					"captures": {
 						"1": {
-							"name": "entity.name.citationKey"
-						},
-						"4": {
-							"name": "entity.name.citationKey"
-						},
-						"2": {
-							"name": "entity.name.citationKey.identifier"
-						},
-						"3": {
-							"name": "entity.name.citationKey.identifier"
-						},
-						"5": {
-							"name": "entity.name.citationKey.identifier"
-						},
-						"6": {
-							"name": "entity.name.citationKey.identifier"
+							"patterns": [
+								{
+									"match": "(?<![a-zA-Z0-9])(@(?:([a-zA-Z0-9_]+)|{([^}]+)}))(\\s*\\[[^\\]]*\\])?",
+									"captures": {
+										"1": {
+											"name": "entity.name.citationKey"
+										},
+										"2": {
+											"name": "entity.name.citationKey.identifier"
+										},
+										"3": {
+											"name": "entity.name.citationKey.identifier"
+										}
+									}
+								},
+								{ "include": "#ampersand" },
+								{ "include": "#escape" },
+								{ "include": "#bold" },
+								{ "include": "#italic" },
+								{ "include": "#strikethrough" }
+							]
 						}
 					},
 					"name": "meta.citation.normal"
