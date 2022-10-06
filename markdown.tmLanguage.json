@@ -96,7 +96,7 @@
 		"citation-textual": {
 			"patterns": [
 				{
-					"match": "(?<![a-zA-Z0-9])(@([a-zA-Z0-9_]+|{([^}]+)}))",
+					"match": "(?<![a-zA-Z0-9])(@([a-zA-Z0-9_]+|{([^}]+)}))(\\s*\\[[^\\]]*\\])?",
 					"captures": {
 						"1": {
 							"name": "entity.name.citationKey"
