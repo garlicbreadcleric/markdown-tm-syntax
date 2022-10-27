@@ -2129,7 +2129,7 @@
 			"begin": "(?:^|\\G)(:{3,})\\s*([a-z\\-]+|\\{(.*)\\})\\s*(:*)\\s*$",
 			"beginCaptures": {
 				"1": {
-					"name": "punctuation.definition.fenced_div.markdown"
+					"name": "punctuation.definition.fenced_div.begin.markdown"
 				},
 				"2": {
 					"name": "fenced_div.block.attributes.markdown"
@@ -2141,13 +2141,13 @@
 					]
 				},
 				"4": {
-					"name": "punctuation.definition.fenced_div.markdown"
+					"name": "punctuation.definition.fenced_div.begin.markdown"
 				}
 			},
 			"end": "(?:^|\\G)(:{3,})\\s*$",
 			"endCaptures": {
 				"1": {
-					"name": "punctuation.definition.fenced_div.markdown"
+					"name": "punctuation.definition.fenced_div.end.markdown"
 				}
 			},
 			"name": "markup.fenced_div.block.markdown",
