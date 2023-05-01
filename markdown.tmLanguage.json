@@ -2404,6 +2404,20 @@
 					"include": "#inline"
 				}
 			],
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.constant.markdown"
+				},
+				"2": {
+					"name": "constant.other.footnote.markdown"
+				},
+				"3": {
+					"name": "punctuation.definition.constant.markdown"
+				},
+				"4": {
+					"name": "punctuation.separator.key-value.markdown"
+				}
+			},
 			"name": "meta.footnote.def.markdown"
 		},
 		"link-def": {
@@ -2482,11 +2496,14 @@
 		"lists": {
 			"patterns": [
 				{
-					"begin": "(^|\\G)([ ]{0,3})([*+-])([ \\t])",
+					"begin": "(^|\\G)([ ]{0,3})([*+-])([ \\t])([ ]{,2}(\\[)( |x)(\\]))?",
 					"beginCaptures": {
 						"3": {
 							"name": "punctuation.definition.list.begin.markdown"
-						}
+						},
+						"6": { "name": "punctuation.definition.checkbox.begin.markdown" },
+						"7": { "name": "punctuation.definition.checkmark.markdown" },
+						"8": { "name": "punctuation.definition.checkbox.end.markdown" }
 					},
 					"comment": "Currently does not support un-indented second lines.",
 					"name": "markup.list.unnumbered.markdown",
@@ -2574,6 +2591,9 @@
 				},
 				{
 					"include": "#strikethrough"
+				},
+				{
+					"include": "#highlight"
 				},
 				{
 					"include": "#escape"
@@ -3174,6 +3194,74 @@
 			},
 			"match": "(?<!\\\\)(~{2,})((?:[^~]|(?!(?<![~\\\\])\\1(?!~))~)*+)(\\1)",
 			"name": "markup.strikethrough.markdown"
+		},
+		"highlight": {
+			"captures": {
+				"1": {
+					"name": "punctuation.definition.highlight.markdown"
+				},
+				"2": {
+					"patterns": [
+						{
+							"applyEndPatternLast": 1,
+							"begin": "(?=<[^>]*?>)",
+							"end": "(?<=>)",
+							"patterns": [
+								{
+									"include": "text.html.derivative"
+								}
+							]
+						},
+						{
+							"include": "#escape"
+						},
+						{
+							"include": "#ampersand"
+						},
+						{
+							"include": "#bracket"
+						},
+						{
+							"include": "#raw"
+						},
+						{
+							"include": "#bold"
+						},
+						{
+							"include": "#italic"
+						},
+						{
+							"include": "#image-inline"
+						},
+						{
+							"include": "#link-inline"
+						},
+						{
+							"include": "#link-inet"
+						},
+						{
+							"include": "#link-email"
+						},
+						{
+							"include": "#image-ref"
+						},
+						{
+							"include": "#link-ref-literal"
+						},
+						{
+							"include": "#link-ref"
+						},
+						{
+							"include": "#link-ref-shortcut"
+						}
+					]
+				},
+				"3": {
+					"name": "punctuation.definition.highlight.markdown"
+				}
+			},
+			"match": "(?<!\\\\)(={2,})((?:[^=]|(?!(?<![=\\\\])\\1(?!=))=)*+)(\\1)",
+			"name": "markup.highlight.markdown"
 		}
 	}
 }
